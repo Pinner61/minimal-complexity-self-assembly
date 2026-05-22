@@ -155,3 +155,59 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import networkx as nx
+```
+
+Then run the notebook cells in order from Step 1 through Step 11.
+
+---
+
+## Key Takeaway
+
+The main takeaway from this project is that minimal complexity self assembly is not only about using fewer components.
+
+A reduced design is useful only if it still preserves enough information to assemble the intended structure reliably. If too much specificity is removed, the system may produce incomplete, incorrect, or ambiguous assemblies.
+
+This tradeoff between simplicity and reliability is what makes self assembly design an interesting computational modeling problem.
+
+---
+
+## Limitations
+
+This notebook is a simplified conceptual model.
+
+It does not perform molecular dynamics simulation, DNA origami modeling, sequence design, SAT based inverse design, thermodynamic modeling, or experimental validation.
+
+The stochastic assembly model used here is intentionally simple and is meant only to demonstrate the design tradeoff at a student learning level.
+
+---
+
+## Future Work
+
+Possible next steps include:
+
+- Extending the model to three dimensional shapes
+- Implementing a basic constraint solver for inverse design
+- Testing larger and more complex target structures
+- Comparing multiple reduced design strategies
+- Studying SAT based design methods more directly
+- Exploring existing DNA and RNA nanotechnology tools such as oxDNA or oxView
+- Connecting the model to environmental sensing or sustainable material design concepts
+
+---
+
+## Academic Inspiration
+
+This project was inspired by:
+
+Bohlin, J., Turberfield, A. J., Louis, A. A., and Šulc, P.  
+*Designing the Self Assembly of Arbitrary Shapes Using Minimal Complexity Building Blocks.*
+
+The original paper studies the design of self assembled structures using minimal numbers of building block species and interaction types. This repository is a simplified student project built to understand the computational design ideas behind that work.
+
+---
+
+## Author
+
+Tejas Sharma  
+Computer Science Student at Arizona State University  
+Interested in sustainability, computational modeling, and bio inspired systems.
