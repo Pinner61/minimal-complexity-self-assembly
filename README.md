@@ -1,22 +1,26 @@
-# Minimal Complexity Self Assembly
+# Constraint Based 3D Self Assembly and Minimal Complexity Inverse Design
 
-## A Computational Modeling Notebook Inspired by Bio Inspired Nanotechnology
+## A Completed Computational Modeling Notebook Inspired by Bio Inspired Nanotechnology
 
 This repository contains a Python based computational modeling notebook inspired by the paper *Designing the Self Assembly of Arbitrary Shapes Using Minimal Complexity Building Blocks* by Joakim Bohlin, Andrew J. Turberfield, Ard A. Louis, and Petr Šulc.
 
-The project explores a simplified version of the paper’s main idea: a target self assembled structure does not always require every building block to be unique. In some cases, the same structure can be represented using fewer reusable building block types, as long as the interaction rules still preserve enough information to guide the assembly toward the intended shape.
+The project explores a simplified version of the paper’s main idea: a target self assembled structure does not always require every building block to be unique. In some cases, the same structure can be represented using fewer reusable building block species, as long as the interaction rules still preserve enough information to guide the assembly toward the intended shape.
 
-This is a student learning project focused on understanding the computational design logic behind minimal complexity self assembly. It does not attempt to reproduce the full scientific pipeline from the paper, but it builds a smaller graph based and stochastic modeling framework to study the tradeoff between simplicity and reliability.
+This notebook is a completed second stage extension of an earlier minimal complexity self assembly model. The earlier notebook introduced the basic idea of simplified self assembly and reduced building block complexity. This final notebook extends that idea into a more complete 3D computational prototype using voxel based target shapes, adjacency graphs, reduced design strategies, constraint style validation, stochastic assembly testing, off target risk analysis, and final strategy comparison.
+
+This is a student research and learning project focused on understanding the computational design logic behind minimal complexity self assembly. It does not attempt to reproduce the full scientific pipeline from the paper, but it builds a smaller graph based, constraint inspired, and stochastic modeling framework to study the tradeoff between simplicity and reliability.
 
 ---
 
 ## Project Motivation
 
-Self assembly is an important idea in biological and bio inspired systems. In nature, complex structures often form through local interactions between smaller components. Bio inspired nanotechnology uses similar ideas to design programmable structures from components such as DNA, RNA, proteins, or other nanoscale building blocks.
+Self assembly is an important idea in biological and bio inspired systems. In nature, complex structures often form through local interactions between smaller components. Bio inspired nanotechnology uses similar ideas to design programmable structures from components such as DNA, RNA, proteins, nanoparticles, or other nanoscale building blocks.
 
-The paper that inspired this project studies how arbitrary shapes can be designed using different levels of component complexity. At one extreme, every building block in the final structure is unique. At the other extreme, the structure is designed using the minimum number of reusable building block types that can still define the target assembly.
+The paper that inspired this project studies how arbitrary shapes can be designed using different levels of component complexity. At one extreme, every building block in the final structure is unique. This is called a fully addressable design. At the other extreme, the structure is designed using a smaller number of reusable building block species that can still define the target assembly.
 
-This notebook uses that idea as the foundation for a simplified computational model. The goal is to understand how target shapes can be represented, how building block species can be reused, and why reduced complexity can sometimes introduce ambiguity during assembly.
+This notebook uses that idea as the foundation for a simplified computational model. The goal is to understand how target shapes can be represented, how building block species can be reused, how compatibility rules can be checked, and why reduced complexity can sometimes introduce ambiguity or off target assembly risk.
+
+The project is motivated by the idea that computational modeling can help explain design tradeoffs before moving toward more advanced simulation methods. Instead of only summarizing the paper, this notebook builds a working Python prototype that tests related ideas through code, tables, plots, and visual assembly examples.
 
 ---
 
@@ -24,23 +28,25 @@ This notebook uses that idea as the foundation for a simplified computational mo
 
 The main question explored in this notebook is:
 
-Can a target shape be represented using fewer distinct building block types while still preserving enough interaction information to assemble the intended structure?
+Can a target 3D structure be represented using fewer unique building block species while still preserving reliable assembly behavior?
 
-This question connects computer science concepts such as graph representation, constraint based reasoning, stochastic simulation, and optimization with bio inspired systems and programmable self assembly.
+This question connects computer science concepts such as graph representation, constraint based reasoning, stochastic simulation, local rule validation, and design optimization with bio inspired systems and programmable self assembly.
 
 ---
 
 ## What This Notebook Does
 
-The notebook builds a simplified self assembly modeling workflow in Python.
+The notebook builds a simplified 3D self assembly modeling workflow in Python.
 
-It begins by representing target shapes as grid based graphs. Each occupied grid position is treated as a building block, and each connection between neighboring positions is treated as a required interaction.
+It begins by representing target shapes as voxel based structures. Each occupied voxel position is treated as one building block location in the final assembled structure. Each face sharing neighbor relationship between voxels is treated as a required bond.
 
-The notebook then compares different design strategies for the same target shapes. A fully addressable design assigns a unique building block species to every position. A reduced complexity design reuses building block species when positions share similar local connection patterns.
+The notebook then compares different design strategies for the same target shapes. A fully addressable design assigns a unique building block species to every voxel position. A strict reduced design reuses species when voxel positions have the same local patch pattern in the same global directions. A rotation aware reduced design allows species to be reused when local patch patterns are equivalent under cube rotations.
 
-After comparing design complexity, the notebook tests whether reduced designs can still assemble correctly using a simplified stochastic assembly model. This helps show that reducing the number of species is not automatically enough. A design must also preserve enough specificity to avoid incomplete, incorrect, or ambiguous assemblies.
+After comparing design complexity, the notebook checks whether the reduced designs remain rule consistent. It tests whether patch assignments exist, whether compatibility relationships are symmetric, and whether any patch color is forced to bind to multiple different partners.
 
-Finally, the notebook introduces an orientation aware reduced model, where reusable building blocks can appear in different rotated forms while still preserving local geometric constraints.
+The notebook then runs simplified stochastic assembly tests. These tests ask whether the target shape can form under target guided growth and whether the same design rules could create incorrect or overgrown structures under free growth. This helps show that reducing the number of species is not automatically enough. A reduced design must also preserve enough specificity to avoid incomplete, incorrect, ambiguous, or off target assemblies.
+
+Finally, the notebook creates a final comparison dashboard and capstone conclusion. The notebook ends as a completed computational prototype rather than as a future work proposal.
 
 ---
 
@@ -48,36 +54,81 @@ Finally, the notebook introduces an orientation aware reduced model, where reusa
 
 The project uses the following computational ideas:
 
-- Graph based representation of target structures
+- 3D voxel based target representation
+- Local adjacency and bond extraction
+- Graph based structure analysis
 - Fully addressable design as a high complexity baseline
-- Reduced complexity design using reusable building block species
-- Local connection patterns
-- Rotation aware species grouping
-- Stochastic assembly testing
+- Strict reduced design using local patch signatures
+- Rotation aware reduced design using cube rotation equivalence
+- Reusable building block species
+- Patch compatibility rules
+- Constraint style validation
+- Stochastic target guided assembly testing
+- Free growth off target stress testing
+- Assembly success and failure mode analysis
+- Species reduction analysis
 - Design quality comparison
+- Final dashboard based strategy ranking
 - Interpretation of the tradeoff between simplicity and reliability
 
 ---
 
 ## Connection to the Original Paper
 
-The original paper uses a much more advanced research pipeline. It formulates the inverse design problem using Boolean satisfiability, scans possible combinations of species and patch colors, tests candidate solutions using stochastic polycube assembly, and studies selected designs using patchy particle molecular dynamics simulations. The paper also discusses possible realization through DNA nanostructures using coarse grained DNA simulation tools.
+The original paper uses a more advanced scientific pipeline. It formulates the inverse design problem using Boolean satisfiability, scans possible combinations of species and patch colors, tests candidate solutions using stochastic polycube assembly, and studies selected designs using patchy particle molecular dynamics simulations. The paper also discusses possible realization through DNA nanostructures using coarse grained DNA simulation tools.
 
 This repository does not reproduce those full methods.
 
-Instead, it focuses on the conceptual layer of the problem. It uses simplified Python models to understand why minimal complexity design is useful, why fully addressable designs are expensive, and why reduced designs must still be checked for assembly reliability.
+Instead, it focuses on the conceptual and computational layer of the problem. It uses simplified Python models to understand why minimal complexity design is useful, why fully addressable designs are expensive, why reduced designs must still be validated, and why assembly behavior matters in addition to species count.
+
+The notebook captures the following ideas from the paper in simplified form:
+
+- target structures can be represented as connected arrangements of building blocks,
+- fully addressable designs provide a maximum complexity baseline,
+- reduced designs can reuse building block species,
+- interaction rules must be specific enough to guide assembly,
+- stochastic testing can reveal whether a design is likely to assemble correctly,
+- compact rule sets must be checked for possible off target behavior.
+
+This makes the notebook a computational bridge toward the inverse design logic used in the original research.
 
 ---
 
-## Sustainability Connection
+## Target Shapes Tested
 
-Although the original paper is focused on programmable self assembly and bio inspired nanotechnology, the design idea has a broader connection to sustainability.
+The notebook tests multiple simplified 3D target structures:
 
-If future nanoscale materials, sensing systems, or engineered structures can be designed with fewer unique components, this may reduce material complexity, synthesis burden, and trial and error during experimental development. Computational modeling can also help researchers screen designs before physical fabrication, which may save time, resources, and laboratory effort.
+1. Solid 2 x 2 x 2 cube
+2. 3D L shape
+3. Staircase structure
+4. Hollow 3 x 3 x 3 cube shell
+5. Wireframe 3 x 3 x 3 cube
 
-This type of thinking could eventually support sustainability related applications such as environmental sensing, sustainable materials, resource efficient manufacturing, and low waste design workflows.
+These shapes were selected because they represent different levels of geometric and connectivity complexity. Some structures are compact, some are branched, and some contain shell or wireframe like geometry. This allows the notebook to compare how target geometry affects species reduction, patch assignment, assembly success, and off target risk.
 
-In this project, sustainability is not treated as a direct experimental result. Instead, it is presented as a broader motivation for why efficient computational design methods may matter in future scientific and engineering systems.
+---
+
+## Design Strategies Compared
+
+The notebook compares three main design strategies.
+
+### Fully Addressable Design
+
+In the fully addressable design, every voxel position receives its own unique building block species. Every required bond receives its own unique complementary patch color pair.
+
+This design is easy to understand and highly specific, but it requires the largest number of unique building blocks.
+
+### Strict Reduced Design
+
+In the strict reduced design, voxel positions are grouped together when they have the same local patch pattern in the same global directions.
+
+For example, two voxels with active connections on the same faces can share the same building block species. This reduces the number of unique species, but it does not account for rotated versions of the same local pattern.
+
+### Rotation Aware Reduced Design
+
+In the rotation aware reduced design, voxel positions can share a species if their local patch patterns are equivalent under cube rotations.
+
+This allows the notebook to reuse geometrically similar building blocks even when they appear in different orientations. This strategy usually gives stronger species reduction than the strict reduced design.
 
 ---
 
@@ -85,49 +136,87 @@ In this project, sustainability is not treated as a direct experimental result. 
 
 The notebook is organized into the following steps:
 
-### Step 1: Representing a Target Shape as a Graph
+### Step 1: Project Setup, Research Framing, and Notebook Goals
 
-Target shapes are represented as grid based structures. Each occupied position becomes a node, and each neighboring connection becomes an edge.
+The notebook begins by importing required libraries, setting a random seed, preparing an output folder, and explaining the purpose of the project. This step frames the notebook as a second stage extension of the earlier minimal complexity self assembly model.
 
-### Step 2: Building a Fully Addressable Design
+### Step 2: Define Simplified 3D Voxel Target Shapes
 
-Each position in the target shape is assigned a unique building block species. Each required connection receives a unique interaction label. This creates the high complexity baseline.
+Multiple 3D target structures are defined using voxel coordinates. These include a solid cube, 3D L shape, staircase, hollow cube shell, and wireframe cube.
 
-### Step 3: Creating a Reduced Complexity Design
+### Step 3: Build Adjacency and Bond Structure
 
-Positions with similar local connection patterns are grouped into reusable building block species. This reduces the number of distinct species required to describe the shape.
+Each target shape is converted into a connectivity structure. Each voxel is treated as a building block position, and each face sharing neighbor relationship becomes a required bond.
 
-### Step 4: Comparing Fully Addressable and Reduced Designs
+### Step 4: Build the Fully Addressable Design
 
-The notebook compares the number of species used in the fully addressable and reduced designs.
+A maximum complexity baseline is created for each target shape. Every voxel gets a unique species and every required bond gets a unique complementary patch color pair.
 
-### Step 5: Interpreting the Complexity Reduction
+### Step 5: Build a Strict Reduced Design
 
-The results are interpreted to explain how component reuse can reduce design complexity.
+The notebook groups voxels into reusable species when they have identical local patch signatures in the same global directions. This tests how much component reuse is possible without considering rotation equivalence.
 
-### Step 6: Testing Whether the Reduced Design Is Ambiguous
+### Step 6: Build a Rotation Aware Reduced Design
 
-A simplified stochastic assembly model tests whether the reduced design still assembles into the intended target shape.
+The notebook improves the reduction strategy by grouping local patch signatures that are equivalent under cube rotations. This allows more reusable building block species while still preserving local geometric structure.
 
-### Step 7: Visualizing Example Assembly Outcomes
+### Step 7: Constraint Style Validation of Design Strategies
 
-Individual assembly outcomes are visualized to show successful, incomplete, off target, or ambiguous growth.
+Each design strategy is checked for simplified rule consistency. The notebook checks for missing patch assignments, asymmetric compatibility relationships, and ambiguous patch colors with multiple possible partners.
 
-### Step 8: Creating a Simple Design Quality Score
+### Step 8: Simplified Stochastic Assembly Test
 
-A simplified score combines species reduction with target shape success rate to compare design quality.
+Repeated target guided stochastic assembly trials are run for every target shape and design strategy. The notebook measures assembly success rate, number of attempts, final assembled fraction, and failure reasons.
 
-### Step 9: Adding Orientation Awareness to the Reduced Design
+### Step 9: Visual Assembly Snapshots
 
-The reduced design is improved by including local geometric orientation. This helps show why directionality and compatibility rules matter in self assembly.
+The notebook generates 3D visual assembly snapshots. These figures show seed states, partial growth, and final assembled or failed structures, making the assembly process easier to understand visually.
 
-### Step 10: Limitations and Connection to the Original Paper
+### Step 10: Off Target Assembly Risk Check
 
-The notebook explains how the simplified model differs from the original research pipeline.
+The notebook performs a stricter free growth stress test. Instead of only allowing growth along the intended target bonds, the simulation uses the patch compatibility rules to test whether the design can create incorrect or overgrown structures.
 
-### Step 11: Final Conclusion
+### Step 11: Final Comparison Dashboard
 
-The project concludes by summarizing the tradeoff between design simplicity and assembly reliability.
+The notebook combines species reduction, constraint validity, assembly success, off target risk, and overall prototype score into final dashboard tables and visualizations. This step provides the main strategy comparison results.
+
+### Step 12: Conclusive Research Interpretation
+
+The notebook turns the final dashboard results into written interpretation. It summarizes the main quantitative takeaways, shape by shape conclusions, limitations, and broader research implications.
+
+### Step 13: Final Capstone Summary and Completed Contribution Statement
+
+The notebook ends with a final capstone conclusion. This section summarizes what the notebook completed and presents it as a self contained computational prototype rather than an unfinished future work plan.
+
+---
+
+## Key Outputs
+
+The notebook generates several important outputs:
+
+- 3D voxel visualizations of all target shapes
+- Bond network visualizations
+- Voxel degree distribution plots
+- Fully addressable species and patch rule tables
+- Strict reduced species assignment tables
+- Rotation aware species assignment tables
+- Compatibility validation summaries
+- Constraint issue tables
+- Stochastic assembly success rate plots
+- Assembly growth traces
+- 3D assembly snapshot figures
+- Free growth off target outcome plots
+- Off target overgrowth risk summaries
+- Final dashboard heatmaps
+- Complexity versus reliability scatter plots
+- Final best strategy summary tables
+- Final capstone conclusion files
+
+The notebook also saves several output files into a local folder called:
+
+self_assembly_outputs
+
+These outputs can be reused in a GitHub README, meeting discussion, or future presentation.
 
 ---
 
@@ -137,10 +226,12 @@ This project uses:
 
 - Python
 - Google Colab
+- Jupyter Notebook
 - NumPy
 - Pandas
 - Matplotlib
 - NetworkX
+- IPython Markdown display tools
 
 ---
 
@@ -148,50 +239,105 @@ This project uses:
 
 Open the notebook in Google Colab or Jupyter Notebook.
 
+The main notebook file is:
+
+Constraint_Based_3D_Self_Assembly_and_Minimal_Complexity_Inverse_Design.ipynb
+
 Install or import the required Python libraries:
 
-```python
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import networkx as nx
-```
+import itertools
+import random
+import math
+import os
+import textwrap
+from collections import defaultdict, Counter, deque
 
-Then run the notebook cells in order from Step 1 through Step 11.
+NetworkX is optional but useful for graph based visualizations:
+
+import networkx as nx
+
+Then run the notebook cells in order from Step 1 through Step 13.
 
 ---
 
-## Key Takeaway
+## Main Result
 
-The main takeaway from this project is that minimal complexity self assembly is not only about using fewer components.
+The main result of this project is that reduced complexity self assembly can be studied through a transparent computational pipeline.
 
-A reduced design is useful only if it still preserves enough information to assemble the intended structure reliably. If too much specificity is removed, the system may produce incomplete, incorrect, or ambiguous assemblies.
+The notebook shows that fully addressable designs are reliable and easy to specify, but they require the largest number of unique building block species. Reduced strategies can lower the number of species by reusing local building block patterns. Rotation aware reduction is especially useful because it identifies reusable geometric patterns even when they appear in different orientations.
 
-This tradeoff between simplicity and reliability is what makes self assembly design an interesting computational modeling problem.
+However, the notebook also shows that reducing the number of species is not automatically enough. A reduced design must still be checked for compatibility conflicts, target assembly success, and off target growth risk.
+
+The most important conclusion is:
+
+A smaller building block library is useful only when it still preserves enough specificity to assemble the intended target and avoid unintended structures.
+
+---
+
+## Why This Project Is Useful
+
+This project is useful because it demonstrates a complete computational modeling workflow for a scientific design problem.
+
+It shows how a Python notebook can be used to explore ideas from bio inspired nanotechnology, self assembly, and inverse design without immediately needing to implement a full molecular simulation pipeline.
+
+The project is also useful because it turns a research paper into an understandable computational experiment. Instead of only summarizing the paper, the notebook builds a simplified working model that tests related ideas through code, tables, simulations, and visualizations.
+
+The notebook demonstrates technical work across multiple areas:
+
+- data structure design,
+- graph representation,
+- geometric reasoning,
+- stochastic simulation,
+- model comparison,
+- scientific visualization,
+- result interpretation.
+
+---
+
+## Sustainability Connection
+
+Although this project is inspired by self assembly and bio inspired nanotechnology, it also connects to sustainability at a broader design level.
+
+If future programmable materials or nanoscale structures can be designed with fewer unique components, this may reduce synthesis complexity, material preparation burden, design trial and error, and experimental cost. Computational screening can also help identify promising designs before physical fabrication, which may reduce wasted laboratory time and resources.
+
+This project does not claim to produce a direct sustainability application. Instead, it shows how efficient computational design methods could support future work in resource efficient materials, environmental sensing, programmable structures, and low waste design workflows.
 
 ---
 
 ## Limitations
 
-This notebook is a simplified conceptual model.
+This notebook is a simplified computational prototype.
 
-It does not perform molecular dynamics simulation, DNA origami modeling, sequence design, SAT based inverse design, thermodynamic modeling, or experimental validation.
+It does not perform:
 
-The stochastic assembly model used here is intentionally simple and is meant only to demonstrate the design tradeoff at a student learning level.
+- full SAT based inverse design,
+- molecular dynamics simulation,
+- DNA origami modeling,
+- sequence design,
+- thermodynamic modeling,
+- experimental validation,
+- physical patchy particle simulation.
+
+The stochastic assembly and free growth tests are simplified models intended to compare design strategies at a conceptual level. They are not substitutes for molecular simulation or experimental testing.
+
+The value of the notebook is that it clearly demonstrates the computational logic of the design tradeoff and creates a foundation for understanding more advanced inverse design methods.
 
 ---
 
-## Future Work
+## Repository Files
 
-Possible next steps include:
+This repository includes the following notebook files:
 
-- Extending the model to three dimensional shapes
-- Implementing a basic constraint solver for inverse design
-- Testing larger and more complex target structures
-- Comparing multiple reduced design strategies
-- Studying SAT based design methods more directly
-- Exploring existing DNA and RNA nanotechnology tools such as oxDNA or oxView
-- Connecting the model to environmental sensing or sustainable material design concepts
+Minimal_Complexity_Self_Assembly_A_Computational_Modeling_Notebook_Inspired_by_Bio_Inspired_Nanotechnology.ipynb
+
+This notebook contains the initial simplified self assembly model.
+
+Constraint_Based_3D_Self_Assembly_and_Minimal_Complexity_Inverse_Design.ipynb
+
+This notebook contains the completed second stage 3D extension with constraint style validation, stochastic assembly testing, off target analysis, and final dashboard comparison.
 
 ---
 
@@ -199,15 +345,18 @@ Possible next steps include:
 
 This project was inspired by:
 
-Bohlin, J., Turberfield, A. J., Louis, A. A., and Šulc, P.  
+Bohlin, J., Turberfield, A. J., Louis, A. A., and Šulc, P.
+
 *Designing the Self Assembly of Arbitrary Shapes Using Minimal Complexity Building Blocks.*
 
-The original paper studies the design of self assembled structures using minimal numbers of building block species and interaction types. This repository is a simplified student project built to understand the computational design ideas behind that work.
+The original paper studies the design of arbitrary self assembled structures using minimal numbers of building block species and interaction types. This repository is a simplified student project built to understand and computationally explore the design ideas behind that work.
 
 ---
 
 ## Author
 
-Tejas Sharma  
-Computer Science Student at Arizona State University  
-Interested in sustainability, computational modeling, and bio inspired systems.
+Tejas Sharma
+
+Computer Science Student at Arizona State University
+
+Interested in computational modeling, sustainability, bio inspired systems, data science, and scientific computing.
